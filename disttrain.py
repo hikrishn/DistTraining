@@ -358,13 +358,36 @@ def training(local_rank, config):
     if rank == 0:
         tb_logger.close()
 
-
+## For running on GPU Instances
 def run(backend=None, **spawn_kwargs):
     config["backend"] = backend
 
     with idist.Parallel(backend=config["backend"], **spawn_kwargs) as parallel:
         parallel.run(training, config)
 
+## For running on Google tpu
+#def run(backend=None, **spawn_kwargs):
+#    nproc_per_node = 8
+#    config["backend"] = "xla-tpu"
+
+#    with idist.Parallel(backend=config["backend"], nproc_per_node=nproc_per_node) as parallel:
+#        parallel.run(training, config)
+
+## For running on Jupyter Notebook
+#def run(backend=None, **spawn_kwargs):
+#    spawn_kwargs = {}
+#    spawn_kwargs["start_method"] = "fork"
+#    spawn_kwargs["nproc_per_node"] = 2
+#    config["backend"] = "nccl"
+
+#    with idist.Parallel(backend=config["backend"], **spawn_kwargs) as parallel:
+#        parallel.run(training, config)
+
+
+
 
 if __name__ == "__main__":
     fire.Fire({"run": run})
+
+
+
