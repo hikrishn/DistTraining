@@ -17,6 +17,7 @@ gcloud compute scp --project krish-gcp-iris --zone asia-east1-c --recurse /Users
 cd DistTraining/
 pip3 install fire
 pip3 install pytorch-ignite
+# Reference for fixing the torch xla error : https://medium.com/the-owl/installing-pytorch-xla-in-google-colab-without-35d37d1d03c6
 pip3 install cloud-tpu-client==0.10 https://storage.googleapis.com/tpu-pytorch/wheels/torch_xla-1.9-cp37-cp37m-linux_x86_64.whl
 pip3 install tensorboardX
 # Run with torch.distributed.launch (Recommended) on a single node with 1 GPU
