@@ -18,6 +18,7 @@ https://pytorch-ignite.ai/tutorials/intermediate/01-cifar10-distributed/
 Command history on my GPU
 ==========================
 gcloud compute scp --project krish-gcp-iris --zone asia-east1-c --recurse /Users/krishna/Creative_Man/AI_ML/JobPrep/DistributedTrainingCheckout/DistTraining krish-pig-1-vm:~/
+gcloud compute scp --project krish-gcp-iris --zone asia-east1-a --recurse /Users/krishna/Creative_Man/AI_ML/JobPrep/DistributedTrainingCheckout/DistTraining deeplearning-1-vm:~/
 cd DistTraining/
 pip3 install fire
 pip3 install pytorch-ignite
@@ -30,7 +31,7 @@ python -u -m torch.distributed.launch --nproc_per_node=1 --use_env disttrain.py 
 #Run with internal spawining (torch.multiprocessing.spawn)
 python -u disttrain.py run --backend="nccl" --nproc_per_node=2
 
-
-
+python -u -m torch.distributed.launch --nnodes=2 --nproc_per_node=1 --node_rank=0 --master_addr=34.80.114.167 --master_port=2222 --use_env disttrain.py run --backend="nccl"
+python -u -m torch.distributed.launch --nnodes=2 --nproc_per_node=2 --node_rank=1 --master_addr=34.80.114.167 --master_port=2222 --use_env disttrain.py run --backend="nccl"
 docker pull 
 docker run -it --gpus all --rm -v $(pwd):/mnt --network=host pytorchignite/base:latest
