@@ -5,6 +5,10 @@
 #which git
 #pip3 install pytorch-ignite
 
+#Reference : https://pytorch-ignite.ai/tutorials/intermediate/01-cifar10-distributed/
+
+# Download CIFAR datasets to your local:
+#python -c "from torchvision.datasets import CIFAR10; CIFAR10('cifar10', download=True)"   
 
 
 Command history on my GPU
